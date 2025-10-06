@@ -1,775 +1,135 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sus Huellas, Mi Camino - Sanando la pérdida de tu mascota</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --color-beige-claro: #F8F4E3; /* Fondo principal */
-            --color-cafe-oscuro: #5C4033; /* Textos principales, acentos */
-            --color-verde-oliva-suave: #C7D2B6; /* Verde oliva más suave y menos saturado */
-            --color-blanco: #FFFFFF;
-            --color-sombra: rgba(0, 0, 0, 0.08); /* Sombra aún más sutil */
-            --color-sombra-hover: rgba(0, 0, 0, 0.15);
-            --gradient-verde-claro: linear-gradient(135deg, #E0E8D7, var(--color-verde-oliva-suave));
-            --gradient-verde-medio: linear-gradient(135deg, var(--color-verde-oliva-suave), #9CB58A);
-            --gradient-cafe-claro: linear-gradient(135deg, #DDD6CE, #C5B9AE);
-        }
 
-        body {
-            font-family: 'Open Sans', sans-serif;
-            color: var(--color-cafe-oscuro);
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: var(--color-beige-claro);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .section {
-            padding: 60px 20px;
-            max-width: 960px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .header-section {
-            background: var(--gradient-verde-claro); /* Gradiente suave */
-            color: var(--color-blanco);
-            padding: 80px 20px 40px;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            border-bottom-left-radius: 60px; /* Más redondeado */
-            border-bottom-right-radius: 60px;
-            box-shadow: 0 8px 30px var(--color-sombra-hover); /* Sombra más pronunciada pero suave */
-        }
-
-        .header-section h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.8em;
-            margin-bottom: 10px;
-            color: var(--color-cafe-oscuro);
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.15); /* Sombra de texto sutil */
-        }
-
-        .header-section p {
-            font-family: 'Lora', serif;
-            font-size: 1.6em;
-            margin-top: 0;
-            color: var(--color-cafe-oscuro);
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.4;
-        }
-
-        .header-image-container {
-            width: 100%;
-            max-width: 350px;
-            margin: 30px auto 0 auto;
-            display: block;
-            position: relative;
-            z-index: 2;
-        }
-
-        .image-placeholder {
-            width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            box-sizing: border-box;
-            border-radius: 15px; /* Más redondeado para la portada */
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2); /* Sombra para la imagen principal */
-        }
-
-        .problem-section {
-            padding: 60px 20px;
-            max-width: 960px;
-            margin: 40px auto;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            border-radius: 25px; /* Más redondeado */
-            box-shadow: 0 10px 35px var(--color-sombra-hover); /* Sombra más pronunciada */
-            background-color: var(--color-blanco);
-            z-index: 1;
-        }
-
-        .problem-section-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://d1yei2z3i6k35z.cloudfront.net/13069883/68543251684e0_ChatGPTImage14may202508_53_14p.m..png'); /* URL de imagen de ejemplo más suave */
-            background-size: cover;
-            background-position: center;
-            opacity: 0.15; /* Ligeramente más opaco para que se note el difuminado */
-            z-index: -1;
-        }
-        
-        .problem-section .container-box {
-            background-color: transparent;
-            box-shadow: none;
-            padding: 0;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .problem-section .container-box h2 {
-             color: var(--color-cafe-oscuro);
-        }
-
-        .container-box {
-            background-color: var(--color-blanco);
-            border-radius: 25px; /* Más redondeado */
-            box-shadow: 0 8px 30px var(--color-sombra); /* Sombra más suave y extendida */
-            padding: 35px;
-            margin: 30px auto;
-            text-align: left;
-            max-width: 800px;
-            transition: transform 0.4s ease, box-shadow 0.4s ease; /* Transiciones más suaves */
-            position: relative;
-            overflow: hidden;
-        }
-
-        .container-box::before { /* Efecto de luz sutil en la esquina */
-            content: '';
-            position: absolute;
-            top: -50px;
-            left: -50px;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-            border-radius: 50%;
-            transition: all 0.5s ease;
-            z-index: 0;
-        }
-
-        .container-box:hover {
-            transform: translateY(-8px); /* Efecto de elevación más notable */
-            box-shadow: 0 15px 45px var(--color-sombra-hover); /* Sombra en hover más fuerte */
-        }
-        .container-box:hover::before {
-            transform: scale(1.5) translate(20px, 20px);
-            opacity: 0.2;
-        }
-
-        .container-box h2 {
-            font-family: 'Playfair Display', serif;
-            color: var(--color-verde-oliva-suave); /* Uso del verde más suave */
-            font-size: 2.4em; /* Más grande */
-            margin-bottom: 25px; /* Más espacio */
-            text-align: center;
-            position: relative;
-            z-index: 1; /* Para estar sobre el pseudo-elemento */
-        }
-        .container-box h2::after {
-            content: '';
-            display: block;
-            width: 80px; /* Más ancho */
-            height: 4px; /* Más grueso */
-            background-color: var(--color-verde-oliva-suave);
-            margin: 15px auto 0; /* Más espacio */
-            border-radius: 5px;
-        }
-
-        .container-box h3 {
-            font-family: 'Lora', serif;
-            color: var(--color-cafe-oscuro);
-            font-size: 1.6em; /* Más grande */
-            margin-top: 35px; /* Más margen */
-            margin-bottom: 18px;
-            text-align: center;
-            z-index: 1;
-        }
-
-        .container-box p {
-            margin-bottom: 18px; /* Más margen */
-            font-size: 1.18em; /* Ligeramente más grande */
-            z-index: 1;
-        }
-
-        .container-box ul {
-            list-style: none;
-            padding: 0;
-            margin-top: 25px; /* Más margen */
-        }
-
-        .container-box ul li {
-            position: relative;
-            padding-left: 35px; /* Más espacio para el checkmark */
-            margin-bottom: 15px; /* Más espacio entre ítems */
-            font-size: 1.15em;
-            line-height: 1.5;
-            color: #444;
-            z-index: 1;
-        }
-
-        .container-box ul li::before {
-            content: '✔'; /* Un checkmark más sutil */
-            color: var(--color-cafe-oscuro); /* Color café oscuro */
-            position: absolute;
-            left: 0;
-            top: 0;
-            font-weight: bold;
-            font-size: 1.4em; /* Tamaño del checkmark */
-            opacity: 0.8; /* Ligeramente transparente */
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: var(--color-cafe-oscuro);
-            color: var(--color-blanco);
-            padding: 22px 45px; /* Más padding */
-            border-radius: 60px; /* Más redondeado */
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.5em; /* Más grande */
-            margin-top: 50px; /* Más margen superior */
-            transition: background-color 0.4s ease, transform 0.3s ease, box-shadow 0.4s ease;
-            box-shadow: 0 8px 20px var(--color-sombra-hover);
-            letter-spacing: 0.5px; /* Espaciado de letras */
-        }
-
-        .cta-button:hover {
-            background-color: #7D5A4C;
-            transform: translateY(-5px); /* Efecto de elevación más notable */
-            box-shadow: 0 12px 30px var(--color-sombra-hover);
-        }
-
-        .usp-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px; /* Más espacio */
-            margin-top: 50px;
-        }
-
-        .usp-item {
-            background-color: var(--color-blanco);
-            border-radius: 20px; /* Más redondeado */
-            box-shadow: 0 8px 25px var(--color-sombra);
-            padding: 30px; /* Más padding */
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-        .usp-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 35px var(--color-sombra-hover);
-        }
-
-        .usp-item h3 {
-            font-family: 'Lora', serif;
-            color: var(--color-cafe-oscuro);
-            font-size: 1.5em; /* Más grande */
-            margin-bottom: 15px;
-        }
-
-        .usp-item p {
-            font-size: 1.05em;
-            line-height: 1.6;
-            color: #666;
-        }
-
-        .testimonial-section {
-            background: var(--gradient-verde-medio); /* Gradiente más pronunciado para testimonios */
-            padding: 80px 20px; /* Más padding */
-            color: var(--color-blanco);
-            border-radius: 60px; /* Más redondeado */
-            box-shadow: 0 -8px 30px var(--color-sombra-hover), 0 8px 30px var(--color-sombra-hover); /* Sombra arriba y abajo */
-            margin-top: 70px; /* Más margen superior */
-        }
-
-        .testimonial-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.2em; /* Más grande */
-            margin-bottom: 50px;
-            color: var(--color-cafe-oscuro);
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Min-width un poco más grande */
-            gap: 40px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .testimonial-item {
-            background-color: var(--color-blanco);
-            border-radius: 20px;
-            box-shadow: 0 8px 25px var(--color-sombra);
-            padding: 35px;
-            color: var(--color-cafe-oscuro);
-            text-align: left;
-            position: relative;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-        .testimonial-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px var(--color-sombra-hover);
-        }
-
-        .testimonial-item p {
-            font-style: italic;
-            margin-bottom: 25px; /* Más espacio */
-            font-size: 1.2em; /* Más grande */
-            line-height: 1.6;
-        }
-
-        .testimonial-author-info {
-            display: flex;
-            align-items: center;
-            margin-top: 25px; /* Más espacio */
-            gap: 15px;
-        }
-
-        .testimonial-author-avatar {
-            width: 80px; /* Tamaño del avatar más grande */
-            height: 80px;
-            border-radius: 50%;
-            background-color: var(--color-beige-claro);
-            border: 4px solid var(--color-verde-oliva-suave); /* Borde más pronunciado */
-            flex-shrink: 0;
-            overflow: hidden;
-            box-shadow: 0 0 0 5px rgba(255,255,255,0.3); /* Sombra de anillo sutil */
-        }
-        .testimonial-author-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .testimonial-item .author {
-            font-weight: bold;
-            color: var(--color-cafe-oscuro);
-            font-size: 1.2em; /* Más grande */
-        }
-
-        .offer-section {
-            background-color: var(--color-beige-claro);
-            padding: 70px 20px;
-        }
-        
-        .offer-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3em;
-            color: var(--color-cafe-oscuro);
-            margin-bottom: 50px; /* Más espacio */
-        }
-
-        .product-stack-image {
-            width: 100%;
-            max-width: 600px; /* Más grande */
-            margin: 0 auto 40px auto; /* Más margen */
-            position: relative;
-            z-index: 5;
-            transition: transform 0.5s ease;
-        }
-        .product-stack-image:hover {
-            transform: scale(1.03); /* Efecto sutil al pasar el ratón */
-        }
-        .product-stack-image .image-placeholder {
-            min-height: 450px; /* Altura de ejemplo para el stack */
-            background-color: #D6CBB7;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3); /* Sombra más fuerte para el stack */
-            border-radius: 25px; /* Más redondeado */
-        }
-
-        .offer-box {
-            background: var(--gradient-verde-claro); /* Gradiente para el precio */
-            border-radius: 30px; /* Más redondeado */
-            box-shadow: 0 15px 45px var(--color-sombra-hover); /* Sombra potente */
-            padding: 45px; /* Más padding */
-            margin: 50px auto; /* Más margen */
-            max-width: 650px; /* Más ancho */
-            text-align: center;
-            border: 4px solid var(--color-cafe-oscuro); /* Borde más grueso y oscuro */
-            position: relative;
-            overflow: hidden;
-        }
-        .offer-box::before {
-            content: '✨'; /* Ícono de brillo */
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 3em;
-            color: var(--color-cafe-oscuro);
-            opacity: 0.2;
-            transform: rotate(-15deg);
-        }
-
-        .offer-box .tagline {
-            font-size: 1.4em; /* Más grande */
-            color: var(--color-cafe-oscuro);
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .offer-box .price-display {
-            font-family: 'Playfair Display', serif;
-            font-size: 4.5em; /* Precio aún más grande */
-            font-weight: bold;
-            color: var(--color-cafe-oscuro);
-            margin: 20px 0;
-            line-height: 1;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .offer-box .currency {
-            font-size: 0.6em;
-            vertical-align: super;
-        }
-
-        .offer-box .original-price {
-            text-decoration: line-through;
-            font-size: 1.3em;
-            color: #888;
-            margin-bottom: 15px;
-        }
-
-        .offer-box .cta-small-text {
-            font-size: 1.2em; /* Más grande */
-            font-weight: 700;
-            color: var(--color-cafe-oscuro);
-            margin-top: 25px;
-        }
-        
-        .guarantee-box {
-            background-color: var(--color-blanco);
-            border-radius: 25px;
-            box-shadow: 0 10px 30px var(--color-sombra);
-            padding: 40px; /* Más padding */
-            margin: 60px auto; /* Más margen */
-            text-align: center;
-            max-width: 800px; /* Más ancho */
-            border: 4px dashed var(--color-verde-oliva-suave); /* Borde más grueso y verde suave */
-            position: relative;
-            overflow: hidden;
-        }
-        .guarantee-box::before {
-            content: '🔒';
-            position: absolute;
-            top: 30px; /* Ajuste de posición */
-            left: 30px; /* Ajuste de posición */
-            font-size: 3em; /* Más grande */
-            color: var(--color-verde-oliva-suave);
-            opacity: 0.4; /* Más visible */
-        }
-        .guarantee-box h3 {
-            font-family: 'Lora', serif;
-            color: var(--color-cafe-oscuro);
-            font-size: 2em; /* Más grande */
-            margin-bottom: 20px; /* Más espacio */
-            padding-top: 20px;
-        }
-        .guarantee-box p {
-            font-size: 1.2em; /* Más grande */
-            color: #555;
-            line-height: 1.6;
-        }
-
-        .future-content-section {
-            background: var(--gradient-verde-medio); /* Gradiente más pronunciado */
-            color: var(--color-blanco);
-            padding: 80px 20px;
-            border-top-left-radius: 60px;
-            border-top-right-radius: 60px;
-            box-shadow: 0 -8px 30px var(--color-sombra-hover);
-            margin-top: 70px;
-        }
-
-        .future-content-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3em;
-            margin-bottom: 35px;
-            color: var(--color-cafe-oscuro);
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
-        }
-        .future-content-section p {
-            font-family: 'Lora', serif;
-            font-size: 1.4em; /* Más grande */
-            max-width: 750px; /* Más ancho */
-            margin: 0 auto 35px auto;
-            line-height: 1.6;
-            color: #444;
-        }
-        .future-content-section ul {
-            list-style: none;
-            padding: 0;
-            max-width: 650px;
-            margin: 0 auto;
-            text-align: left;
-        }
-        .future-content-section ul li {
-            position: relative;
-            padding-left: 40px;
-            margin-bottom: 18px; /* Más espacio */
-            font-size: 1.15em;
-            color: #333;
-            line-height: 1.5;
-        }
-        .future-content-section ul li::before {
-            content: '⭐'; /* Emoji de estrella más visible */
-            position: absolute;
-            left: 0;
-            top: 0;
-            font-size: 1.5em;
-        }
-
-
-        .footer-section {
-            background-color: var(--color-cafe-oscuro);
-            color: var(--color-blanco);
-            padding: 45px 20px; /* Más padding */
-            text-align: center;
-            font-size: 0.95em; /* Ligeramente más grande */
-            border-top-left-radius: 40px; /* Más redondeado */
-            border-top-right-radius: 40px;
-        }
-        .footer-section p {
-            margin: 8px 0;
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 768px) {
-            .header-section h1 {
-                font-size: 3em;
-            }
-
-            .header-section p {
-                font-size: 1.4em;
-            }
-
-            .section {
-                padding: 40px 15px;
-            }
-
-            .container-box {
-                padding: 30px;
-                margin: 25px auto;
-            }
-            .container-box h2 {
-                font-size: 2em;
-            }
-
-            .cta-button {
-                padding: 18px 35px;
-                font-size: 1.2em;
-            }
-
-            .testimonial-section h2, .future-content-section h2, .offer-section h2 {
-                font-size: 2.5em;
-            }
-
-            .offer-box .price-display {
-                font-size: 4em;
-            }
-
-            .testimonial-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            .testimonial-item {
-                padding: 30px;
-            }
-            .testimonial-author-avatar {
-                width: 70px;
-                height: 70px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header-section h1 {
-                font-size: 2.2em;
-            }
-
-            .header-section p {
-                font-size: 1.1em;
-            }
-
-            .section {
-                padding: 30px 10px;
-            }
-
-            .container-box {
-                padding: 20px;
-                margin: 20px auto;
-            }
-            .container-box h2 {
-                font-size: 1.8em;
-            }
-
-            .cta-button {
-                padding: 15px 30px;
-                font-size: 1.1em;
-            }
-
-            .testimonial-section h2, .future-content-section h2, .offer-section h2 {
-                font-size: 2em;
-            }
-            .testimonial-author-avatar {
-                width: 60px;
-                height: 60px;
-            }
-
-            .offer-box .price-display {
-                font-size: 3.5em;
-            }
-            .product-stack-image .image-placeholder {
-                min-height: 300px;
-            }
-            .future-content-section p {
-                font-size: 1.2em;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="section header-section">
-        <div class="header-image-container">
-            <div class="image-placeholder" style="background-image: url('https://d1yei2z3i6k35z.cloudfront.net/13069883/68543189c3b3d_ChatGPTImage14may202507_51_50p.m..png'); background-size: cover; background-position: center; min-height: 450px;">
-                </div>
-        </div>
-        <h1>Sus Huellas, Mi Camino</h1>
-        <p><strong>Sanando la pérdida de tu mascota y transformando el dolor en amor y recuerdo eterno. Porque el amor que te unió, merece ser honrado.</strong></p>
-        <a href="https://pay.hotmart.com/A99774345B?checkoutMode=10" class="cta-button">¡Quiero Sanar Mi Corazón Ahora!</a>
-    </div>
-
-    <div class="problem-section">
-        <div class="problem-section-background"></div> <div class="container-box">
-            <h2>El vacío que solo entiende quien lo vive.</h2>
-            <p>La pérdida de tu mascota es una herida profunda, un duelo que pocos comprenden. Sentirte solo y abrumado es desgarrador. ¿Es normal esta pena? ¿Cómo seguir adelante?</p>
-            <p><strong>No era "solo una mascota", era familia. Sabemos exactamente cómo te sientes y queremos caminar contigo.</strong></p>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="container-box">
-            <h2>Descubre "Sus Huellas, Mi Camino": Tu guía compasiva para transformar el dolor.</h2>
-            <p>Este ebook es tu refugio seguro para honrar su recuerdo y sanar. Una guía para validar tus emociones y transformar el dolor en amor.</p>
-            <h3>Con esta guía transformadora, lograrás:</h3>
-            <ul>
-                <li><strong>Validar tu Dolor:</strong> Entender que tu pena es legítima, sin culpa ni incomprensión.</li>
-                <li><strong>Manejar tus Emociones:</strong> Herramientas prácticas para navegar la tristeza, la culpa y el vacío.</li>
-                <li><strong>Transformar el Recuerdo:</strong> Recordar con amor y gratitud, no solo angustia.</li>
-                <li><strong>Sentirte Acompañado/a:</strong> Descubrir que no estás solo en este camino.</li>
-                <li><strong>Honrar su Legado:</strong> Mantener viva su esencia, sanando sin olvidar.</li>
-            </ul>
-        </div>
-        <a href="https://pay.hotmart.com/A99774345B?checkoutMode=10" class="cta-button">¡Empezar Mi Camino de Sanación Ahora!</a>
-    </div>
-
-    <div class="testimonial-section">
-        <h2>Lo que dicen quienes ya están sanando su corazón...</h2>
-        <div class="testimonial-grid">
-            <div class="testimonial-item">
-                <div class="testimonial-author-info">
-                    <div class="testimonial-author-avatar">
-                        <img src="https://d1yei2z3i6k35z.cloudfront.net/13069883/68543392beb5c_%D0%9A%D0%B0%D0%BA%D0%B7%D0%B05%D0%BC%D0%B8%D0%BD%D1%83%D1%82%D1%80%D0%B5%D1%88%D0%B8%D1%82%D1%8C%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D1%83%D1%8E%D0%B7%D0%B0%D0%B4%D0%B0%D1%87%D1%83%D0%B4%D0%BD%D1%8F_.jpg" alt="Foto Sofía R.">
-                    </div>
-                    <div class="author">Sofía R.</div>
-                </div>
-                <p>"'Sus Huellas, Mi Camino' me hizo sentir comprendida y acompañada. Me dio herramientas reales para esos días oscuros. Es un verdadero abrazo al alma."</p>
-            </div>
-            <div class="testimonial-item">
-                <div class="testimonial-author-info">
-                    <div class="testimonial-author-avatar">
-                        <img src="https://d1yei2z3i6k35z.cloudfront.net/13069883/685434533df2f_FotodeMikeSantosenPexels.jpg" alt="Foto Marcos L.">
-                    </div>
-                    <div class="author">Marcos L.</div>
-                </div>
-                <p>"Esta guía me enseñó a aceptar lo que sentía. Gracias a sus ejercicios, pude volver a sonreír al recordar a mi Leo. Realmente transformadora."</p>
-            </div>
-            <div class="testimonial-item">
-                <div class="testimonial-author-info">
-                    <div class="testimonial-author-avatar">
-                        <img src="https://d1yei2z3i6k35z.cloudfront.net/13069883/684bb72c713ec_descarga46.jpg" alt="Foto Carolina G.">
-                    </div>
-                    <div class="author">Carolina G.</div>
-                </div>
-                <p>"Cada página resonaba con mi corazón. Me ayudó a sanar y a honrar el amor con mi princesa. Imprescindible para cualquier corazón roto."</p>
-            </div>
-            </div>
-    </div>
-
-   <div class="section">
-        <h2>Pero eso no es todo... ¡Recibe estos Bonos Exclusivos GRATIS!</h2>
-        <p>Al adquirir <strong>"Sus Huellas, Mi Camino"</strong> hoy, también recibirás 3 bonos de valor incalculable para una sanación completa:</p>
-
-        <div class="offer-stack-container">
-            <div class="container-box offer-item">
-                <h3>BONO #1: Cuaderno de Duelo Animal</h3>
-                <div class="image-placeholder" style="min-height: 200px; max-width: 300px; margin: 15px auto; background-color: #E6E1D3; border-radius: 10px;">
-                    <img src="https://d1yei2z3i6k35z.cloudfront.net/13069883/68543189c1427_1747438772.png" alt="Portada Cuaderno de Duelo Animal" style="width: 100%; height: 100%; object-fit: contain;">
-                </div>
-                <p>Un espacio sagrado para plasmar tus emociones y recuerdos. Con ejercicios de escritura, es tu refugio personal para el alma, donde puedes expresar y ver tu camino de sanación.</p>
-            </div>
-
-            <div class="container-box offer-item">
-                <h3>BONO #2: Kit de Primeros Auxilios Emocionales</h3>
-                <div class="image-placeholder" style="min-height: 200px; max-width: 300px; margin: 15px auto; background-color: #E6E1D3; border-radius: 10px;">
-                    <img src="https://d1yei2z3i6k35z.cloudfront.net/13069883/68543189d8461_1747438803.png" alt="Portada Kit de Primeros Auxilios Emocionales" style="width: 100%; height: 100%; object-fit: contain;">
-                </div>
-                <p>Herramientas prácticas para manejar la angustia en los días más difíciles. Técnicas de contención, respiración y frases de consuelo. Tu caja de herramientas personal, siempre a mano.</p>
-            </div>
-
-            <div class="container-box offer-item">
-                <h3>BONO #3: Mini Guía: ¿Estoy listo/a para adoptar otra mascota?</h3>
-                <div class="image-placeholder" style="min-height: 200px; max-width: 300px; margin: 15px auto; background-color: #E6E1D3; border-radius: 10px;">
-                    <img src="https://d1yei2z3i6k35z.cloudfront.net/13069883/68543189d7f49_1747438824.png" alt="Portada Mini Guía ¿Estoy listo/a para adoptar otra mascota?" style="width: 100%; height: 100%; object-fit: contain;">
-                </div>
-                <p>Una guía honesta para reflexionar si estás listo para abrir tu corazón a un nuevo compañero. Despeja dudas y culpas, ayudándote a entender si es el momento de expandir tu capacidad de amar, sin reemplazar.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="section offer-section">
-        <h2>Todo esto es lo que recibirás hoy para sanar tu corazón:</h2>
-        <div class="product-stack-image">
-            <div class="image-placeholder" style="background-image: url('https://d1yei2z3i6k35z.cloudfront.net/13069883/68543189c178d_Dise%C3%B1osint%C3%ADtulo2-Photoroom.png'); background-size: contain; background-repeat: no-repeat; background-position: center; min-height: 450px; border-radius: 0;">
-                </div>
-        </div>
-
-        <div class="offer-box">
-            <p class="tagline">Accede a una sanación profunda y completa por solo:</p>
-            <p class="price-display"><span class="currency">USD</span>7</p>
-            <p class="cta-small-text">¡Acceso Instantáneo y de por Vida a la guía principal y tus bonos!</p>
-            <a href="https://pay.hotmart.com/A99774345B?checkoutMode=10" class="cta-button">¡SÍ, QUIERO RECIBIR ESTA OFERTA COMPLETA!</a>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="guarantee-box">
-            <h3>Tu Inversión Está 100% Protegida. ¡Cero Riesgos para Ti!</h3>
-            <p>Con nuestra <strong>Garantía de Satisfacción de 7 Días</strong>, tu proceso de sanación no tiene riesgos. Si la guía no cumple tus expectativas, te devolvemos el 100% de tu dinero, sin preguntas. Inicia con total confianza.</p>
-        </div>
-    </div>
-
-    <div class="future-content-section">
-        <h2>Un camino que crece contigo: Acceso a futuras actualizaciones y más bonos.</h2>
-        <p>Tu viaje es continuo. Al adquirir "Sus Huellas, Mi Camino" hoy, aseguras tu acceso a:</p>
-        <ul>
-            <li><strong>Actualizaciones Gratuitas de la Guía:</strong> Recibe todas las versiones futuras sin costo adicional.</li>
-            <li><strong>Nuevos Bonos y Recursos Exclusivos:</strong> Sé de los primeros en acceder a material de apoyo adicional.</li>
-            <li><strong>Una Comunidad en Crecimiento:</strong> Sé parte de un espacio donde el amor y el apoyo se multiplican.</li>
-        </ul>
-        <p>Un compromiso a largo plazo con tu sanación y la memoria de tu ser amado.</p>
-    </div>
-
-    <div class="footer-section">
-        <p>&copy; 2025 Sus Huellas, Mi Camino. Todos los derechos reservados.</p>
-        <p>Aviso Legal | Política de Privacidad | Términos y Condiciones</p>
-        </div>
-
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sus Huellas, Mi Camino - Sanación del Duelo Animal</title>
+    <meta name="description" content="Transforma el dolor de la partida de tu mascota en calma, conexión y gratitud. Un kit completo para sanar tu corazón sin culpa ni vacío." />
+    <meta name="author" content="Sus Huellas, Mi Camino" />
+
+    <meta property="og:title" content="Sus Huellas, Mi Camino - Sanación del Duelo Animal" />
+    <meta property="og:description" content="La forma más amorosa de transformar el dolor de su partida en calma, conexión y gratitud" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/25b54f9b-8ba2-4f11-9cf0-a221458590bc/id-preview-53cbb1a6--906783ae-e832-4fa4-8eae-8c1eb05f4f3d.lovable.app-1759775960780.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sus Huellas, Mi Camino - Sanación del Duelo Animal" />
+    <meta name="twitter:description" content="Transforma el dolor de la partida de tu mascota en calma y gratitud" />
+    <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/25b54f9b-8ba2-4f11-9cf0-a221458590bc/id-preview-53cbb1a6--906783ae-e832-4fa4-8eae-8c1eb05f4f3d.lovable.app-1759775960780.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/assets/index-BZAhBNG7.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CltEDrdk.css">
+  
+<style>
+	#lovable-badge {
+		position: fixed;
+		bottom: 10px;
+		right: 10px;
+		width: 141px;
+		padding: 5px 13px;	
+		background-color: #000;
+		color: #fff;
+		font-size: 12px;
+		border-radius: 5px;
+		font-family: sans-serif;
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		z-index: 1000000;
+		text-transform: none !important;
+		font-feature-settings: normal !important;
+		font-weight: 400 !important;
+	}
+</style>
+<script defer src="https://sus-huellas-camino.lovable.app/~flock.js" data-proxy-url="https://sus-huellas-camino.lovable.app/~api/analytics"></script></head>
+
+  <body>
+    <div id="root"></div>
+  
+<a id="lovable-badge" target="_blank" href="https://lovable.dev/projects/906783ae-e832-4fa4-8eae-8c1eb05f4f3d?utm_source=lovable-badge">
+	<span style="color: #A1A1AA;">Edit with</span> <svg width="60" height="12" viewBox="0 0 116 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M109.108 21.115C107.649 21.115 106.381 20.8369 105.306 20.2807C104.23 19.7154 103.391 18.8675 102.789 17.7369C102.196 16.6063 101.9 15.2068 101.9 13.5382C101.9 11.9518 102.21 10.5841 102.83 9.4353C103.45 8.27736 104.307 7.3975 105.401 6.79574C106.495 6.19398 107.74 5.89309 109.135 5.89309C110.475 5.89309 111.665 6.18486 112.705 6.76839C113.744 7.35192 114.551 8.19986 115.125 9.31221C115.709 10.4246 116.001 11.7557 116.001 13.3057C116.001 13.8619 115.996 14.3041 115.987 14.6324H105.087V11.7603H113.347L111.788 12.2937C111.788 11.546 111.679 10.9215 111.46 10.42C111.25 9.90941 110.94 9.52647 110.53 9.27118C110.12 9.01588 109.623 8.88824 109.039 8.88824C108.428 8.88824 107.89 9.03868 107.425 9.33956C106.97 9.63133 106.614 10.069 106.359 10.6525C106.112 11.236 105.989 11.9381 105.989 12.7587V14.1674C105.989 15.0062 106.117 15.7174 106.372 16.3009C106.628 16.8844 106.992 17.3266 107.466 17.6275C107.941 17.9193 108.501 18.0651 109.149 18.0651C109.86 18.0651 110.448 17.8828 110.913 17.5181C111.378 17.1443 111.67 16.62 111.788 15.9453H115.932C115.805 17.0029 115.444 17.9193 114.852 18.6943C114.268 19.4693 113.489 20.0665 112.513 20.4859C111.537 20.9053 110.402 21.115 109.108 21.115Z" fill="#FCFBF8"/>
+<path d="M96.5167 1.1061H100.661V20.7181H96.5167V1.1061Z" fill="#FCFBF8"/>
+<path d="M89.4649 21.1148C88.6808 21.1148 87.9788 20.978 87.3588 20.7045C86.7479 20.4309 86.2282 20.0207 85.7996 19.4736C85.3711 18.9174 85.052 18.2336 84.8423 17.4221L85.2799 17.5452V20.7182H81.177V6.28948H85.321V9.51713L84.856 9.59919C85.0657 8.82419 85.3848 8.16316 85.8133 7.6161C86.251 7.05992 86.7844 6.63595 87.4135 6.34419C88.0426 6.04331 88.7492 5.89287 89.5333 5.89287C90.7095 5.89287 91.7307 6.19831 92.5968 6.80919C93.463 7.42007 94.1286 8.29992 94.5936 9.44875C95.0586 10.5885 95.2911 11.9424 95.2911 13.5107C95.2911 15.0698 95.054 16.4237 94.5799 17.5726C94.1058 18.7123 93.4265 19.5876 92.5421 20.1984C91.6668 20.8093 90.6411 21.1148 89.4649 21.1148ZM88.1794 17.9555C88.7994 17.9555 89.3191 17.7732 89.7385 17.4084C90.167 17.0437 90.4861 16.5286 90.6958 15.863C90.9146 15.1974 91.0241 14.4133 91.0241 13.5107C91.0241 12.608 90.9146 11.8239 90.6958 11.1583C90.4861 10.4927 90.167 9.97757 89.7385 9.61286C89.3191 9.23904 88.7994 9.05213 88.1794 9.05213C87.5685 9.05213 87.0442 9.23904 86.6066 9.61286C86.178 9.97757 85.8544 10.4973 85.6355 11.172C85.4167 11.8376 85.3073 12.6171 85.3073 13.5107C85.3073 14.4133 85.4167 15.1974 85.6355 15.863C85.8544 16.5286 86.178 17.0437 86.6066 17.4084C87.0442 17.7732 87.5685 17.9555 88.1794 17.9555ZM81.177 1.1061H85.321V6.28948H81.177V1.1061Z" fill="#FCFBF8"/>
+<path d="M70.7749 21.115C69.8723 21.115 69.0608 20.9372 68.3405 20.5816C67.6293 20.226 67.0686 19.72 66.6583 19.0635C66.2571 18.3979 66.0565 17.6229 66.0565 16.7385C66.0565 15.3891 66.4531 14.3588 67.2464 13.6476C68.0396 12.9274 69.1839 12.4578 70.6792 12.239L73.182 11.8834C73.6834 11.8104 74.08 11.7193 74.3718 11.6099C74.6636 11.5004 74.8778 11.3546 75.0146 11.1722C75.1514 10.9807 75.2197 10.7391 75.2197 10.4474C75.2197 10.1465 75.1377 9.87294 74.9736 9.62677C74.8186 9.37147 74.5815 9.17088 74.2624 9.025C73.9524 8.87 73.574 8.7925 73.1272 8.7925C72.4161 8.7925 71.8462 8.97941 71.4177 9.35324C70.9892 9.71794 70.7567 10.2194 70.7202 10.8576H66.4395C66.4759 9.89118 66.7677 9.03412 67.3148 8.28647C67.8709 7.52971 68.6414 6.94162 69.6261 6.52221C70.6108 6.1028 71.7505 5.89309 73.0452 5.89309C74.4037 5.89309 75.5525 6.11648 76.4917 6.56324C77.4308 7.00089 78.1374 7.63 78.6115 8.45059C79.0947 9.27118 79.3364 10.2513 79.3364 11.391V17.4087C79.3364 18.056 79.382 18.6578 79.4731 19.214C79.5734 19.761 79.7147 20.1075 79.8971 20.2534V20.7184H75.589C75.4887 20.3263 75.4112 19.8841 75.3565 19.3918C75.3018 18.8994 75.2699 18.3797 75.2608 17.8326L75.9309 17.5454C75.7577 18.1928 75.4386 18.79 74.9736 19.3371C74.5177 19.875 73.9296 20.3081 73.2093 20.6363C72.4981 20.9554 71.6867 21.115 70.7749 21.115ZM72.3067 18.0788C72.8902 18.0788 73.4053 17.9512 73.8521 17.6959C74.2989 17.4315 74.6408 17.0668 74.8778 16.6018C75.124 16.1368 75.2471 15.6079 75.2471 15.0153V13.1279L75.589 13.3194C75.3702 13.6112 75.0967 13.8346 74.7684 13.9896C74.4493 14.1446 74.0162 14.2768 73.4692 14.3862L72.4161 14.5913C71.714 14.7281 71.1852 14.9378 70.8296 15.2204C70.4831 15.5031 70.3099 15.8997 70.3099 16.4103C70.3099 16.9209 70.4968 17.3266 70.8706 17.6275C71.2445 17.9284 71.7231 18.0788 72.3067 18.0788Z" fill="#FCFBF8"/>
+<path d="M51.962 6.28958H56.3659L60.1542 18.6668H58.8276L62.4656 6.28958H66.7463L61.7544 20.7182H57.1454L51.962 6.28958Z" fill="#FCFBF8"/>
+<path d="M45.4846 21.115C44.0531 21.115 42.7949 20.805 41.7099 20.185C40.634 19.565 39.7997 18.6806 39.2071 17.5318C38.6236 16.3829 38.3318 15.0381 38.3318 13.4972C38.3318 11.9563 38.6236 10.616 39.2071 9.47633C39.7997 8.3275 40.634 7.44309 41.7099 6.82309C42.7949 6.20309 44.0531 5.89309 45.4846 5.89309C46.916 5.89309 48.1697 6.20309 49.2456 6.82309C50.3215 7.44309 51.1512 8.3275 51.7347 9.47633C52.3274 10.616 52.6237 11.9563 52.6237 13.4972C52.6237 15.0381 52.3274 16.3829 51.7347 17.5318C51.1512 18.6806 50.3215 19.565 49.2456 20.185C48.1697 20.805 46.916 21.115 45.4846 21.115ZM45.4846 17.9421C46.0863 17.9421 46.6015 17.7779 47.03 17.4497C47.4585 17.1123 47.7868 16.6154 48.0147 15.959C48.2427 15.2934 48.3566 14.4728 48.3566 13.4972C48.3566 12.0475 48.1059 10.9488 47.6044 10.2012C47.103 9.44441 46.3963 9.06603 45.4846 9.06603C44.8828 9.06603 44.3631 9.23471 43.9255 9.57206C43.4969 9.9003 43.1687 10.3972 42.9408 11.0628C42.7128 11.7193 42.5988 12.5307 42.5988 13.4972C42.5988 14.4637 42.7128 15.2797 42.9408 15.9453C43.1687 16.6109 43.4969 17.1123 43.9255 17.4497C44.3631 17.7779 44.8828 17.9421 45.4846 17.9421Z" fill="#FCFBF8"/>
+<path d="M26.2195 1.10631H30.514V17.6623L29.7481 16.7734C29.7481 16.7734 31.8751 16.7734 35.534 16.7734C39.1928 16.7734 38.6925 20.7184 38.6925 20.7184H26.2195V1.10631Z" fill="#FCFBF8"/>
+<mask id="mask0_19703_15608" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="21">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5.90405 0.885124C9.16477 0.885124 11.8081 3.53543 11.8081 6.80474V9.05456H13.773C17.0337 9.05456 19.677 11.7049 19.677 14.9742C19.677 18.2435 17.0337 20.8938 13.773 20.8938H0V6.80474C0 3.53543 2.64333 0.885124 5.90405 0.885124Z" fill="url(#paint0_linear_19703_15608)"/>
+</mask>
+<g mask="url(#mask0_19703_15608)">
+<g filter="url(#filter0_f_19703_15608)">
+<circle cx="8.63157" cy="11.5658" r="13.3199" fill="#4B73FF"/>
+</g>
+<g filter="url(#filter1_f_19703_15608)">
+<ellipse cx="10.0949" cy="4.25612" rx="17.0591" ry="13.3199" fill="#FF66F4"/>
+</g>
+<g filter="url(#filter2_f_19703_15608)">
+<ellipse cx="12.8775" cy="1.74957" rx="13.3199" ry="11.6977" fill="#FF0105"/>
+</g>
+<g filter="url(#filter3_f_19703_15608)">
+<circle cx="10.3319" cy="4.25254" r="8.01052" fill="#FE7B02"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_19703_15608" x="-10.6577" y="-7.72354" width="38.5786" height="38.5786" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="2.98472" result="effect1_foregroundBlur_19703_15608"/>
+</filter>
+<filter id="filter1_f_19703_15608" x="-12.9337" y="-15.0332" width="46.057" height="38.5786" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="2.98472" result="effect1_foregroundBlur_19703_15608"/>
+</filter>
+<filter id="filter2_f_19703_15608" x="-6.41182" y="-15.9176" width="38.5786" height="35.3342" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="2.98472" result="effect1_foregroundBlur_19703_15608"/>
+</filter>
+<filter id="filter3_f_19703_15608" x="-3.64803" y="-9.72742" width="27.9599" height="27.9599" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="2.98472" result="effect1_foregroundBlur_19703_15608"/>
+</filter>
+<linearGradient id="paint0_linear_19703_15608" x1="6.62168" y1="4.40129" x2="12.6165" y2="20.8863" gradientUnits="userSpaceOnUse">
+<stop offset="0.025" stop-color="#FF8E63"/>
+<stop offset="0.56" stop-color="#FF7EB0"/>
+<stop offset="0.95" stop-color="#4B73FF"/>
+</linearGradient>
+</defs>
+</svg>
+
+
+	<button id="lovable-badge-close" style="position: absolute; top: -2px; right: 5px; cursor: pointer; font-size: 14px; color: #A1A1AA;">&times;</button>
+</a>
+<script>
+	// Don't show the lovable-badge if the page is in an iframe or if it's being rendered by puppeteer (screenshot service)
+	if (window.self !== window.top || navigator.userAgent.includes('puppeteer')) {
+		// the page is in an iframe
+		var badge = document.getElementById('lovable-badge');
+		if (badge) {
+			badge.style.display = 'none';
+		}
+	}
+
+	// Add click event listener to close button
+	var closeButton = document.getElementById('lovable-badge-close');
+	if (closeButton) {
+		closeButton.addEventListener('click', function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+			var badge = document.getElementById('lovable-badge');
+			if (badge) {
+				badge.style.display = 'none';
+			}
+		});
+	}
+</script>
 </body>
 </html>

@@ -65,17 +65,19 @@
             padding-bottom: 40px;
         }
 
-        /* Indicador Dinámico */
+        /* Indicador Dinámico (Centrado) */
         .dynamic-indicator {
             position: absolute;
             top: 25px;
-            right: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 0.9em;
             color: var(--color-texto-secundario);
             background-color: rgba(255, 255, 255, 0.7);
             padding: 5px 10px;
             border-radius: 5px;
             z-index: 10;
+            min-width: 250px; 
         }
 
         /* Título Principal */
@@ -108,7 +110,7 @@
             margin-bottom: 40px;
             border-radius: 12px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            background-color: #000; /* Placeholder for load */
+            background-color: #000;
         }
 
         .video-wrapper iframe {
@@ -119,6 +121,13 @@
             height: 100%;
             border: none;
             border-radius: 12px;
+        }
+
+        /* Contenedor del CTA y todas las secciones de abajo (Inicialmente oculto) */
+        .delayed-content-container {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s ease-in; /* Para el efecto fade in */
         }
 
         /* Botón CTA */
@@ -140,8 +149,6 @@
         .cta-hero {
             background-color: var(--color-lavanda-oscuro);
             color: var(--color-blanco);
-            opacity: 0; /* Inicialmente oculto por JS */
-            visibility: hidden; /* Inicialmente oculto por JS */
         }
 
         .cta-hero:hover {
@@ -261,22 +268,13 @@
             }
             .dynamic-indicator {
                 top: 10px;
-                right: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="logo">
-                🐾<span>Sus Huellas, Mi Camino</span>
-            </div>
-        </header>
-    </div>
-
     <div class="dynamic-indicator" id="viewer-count">
-        👁️ 57 personas están viendo este video ahora
+        👁️ 51 personas están viendo este video ahora
     </div>
 
     <section class="hero-section">
@@ -298,126 +296,140 @@
                 </iframe>
             </div>
 
-            <a 
-                href="https://pay.hotmart.com/A99774345B?checkoutMode=10" 
-                class="cta-button cta-hero" 
-                id="cta-hero-button"
-            >
-                🌿 Quiero sanar mi corazón
-            </a>
+            <div class="delayed-content-container" id="cta-security-container">
+                <a 
+                    href="https://pay.hotmart.com/A99774345B?checkoutMode=10" 
+                    class="cta-button cta-hero" 
+                >
+                    🌿 Quiero sanar mi corazón
+                </a>
 
-            <div class="security-text">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></svg>
-                Pago 100% seguro y protegido por Hotmart
+                <div class="security-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M144 144v48H304V144c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192V144C80 64.5 144.5 0 224 0s144 64.5 144 144v48h16c35.3 0 64 28.7 64 64V448c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V256c0-35.3 28.7-64 64-64H80z"/></svg>
+                    Pago 100% seguro y protegido por Hotmart
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="testimonials-section">
-        <div class="container">
-            <h2>Lo que dicen nuestros corazones sanados:</h2>
+    <div class="delayed-content-container" id="delayed-sections">
 
-            <div class="testimonial-box">
-                <div class="user-info">
-                    <div class="avatar">SR</div>
-                    <span class="user-name">Sofía R.</span>
+        <section class="testimonials-section">
+            <div class="container">
+                <h2>Lo que dicen nuestros corazones sanados:</h2>
+
+                <div class="testimonial-box">
+                    <div class="user-info">
+                        <div class="avatar">SR</div>
+                        <span class="user-name">Sofía R.</span>
+                    </div>
+                    <p>Sus Huellas, Mi Camino me hizo sentir comprendida y acompañada. Me dio herramientas reales para esos días oscuros. Es un verdadero abrazo al alma.</p>
+                    <div class="reaction-bar">
+                        <span>❤️ 172</span> <span>😢 63</span> <span>👍 91</span>
+                    </div>
                 </div>
-                <p>Sus Huellas, Mi Camino me hizo sentir comprendida y acompañada. Me dio herramientas reales para esos días oscuros. Es un verdadero abrazo al alma.</p>
-                <div class="reaction-bar">
-                    <span>❤️ 172</span> <span>😢 63</span> <span>👍 91</span>
+
+                <div class="testimonial-box">
+                    <div class="user-info">
+                        <div class="avatar">ML</div>
+                        <span class="user-name">Marcos L.</span>
+                    </div>
+                    <p>Esta guía me enseñó a aceptar lo que sentía. Gracias a sus ejercicios, pude volver a sonreír al recordar a mi Leo. Realmente transformadora.</p>
+                    <div class="reaction-bar">
+                        <span>❤️ 210</span> <span>😢 54</span> <span>👍 118</span>
+                    </div>
                 </div>
+
+                <div class="testimonial-box">
+                    <div class="user-info">
+                        <div class="avatar">CG</div>
+                        <span class="user-name">Carolina G.</span>
+                    </div>
+                    <p>Cada página resonaba con mi corazón. Me ayudó a sanar y a honrar el amor con mi princesa. Imprescindible para cualquier corazón roto.</p>
+                    <div class="reaction-bar">
+                        <span>❤️ 245</span> <span>😢 71</span> <span>👍 134</span>
+                    </div>
+                </div>
+
+                <p class="comment-placeholder">
+                    💬 Para comentar debes iniciar sesión.
+                </p>
             </div>
+        </section>
 
-            <div class="testimonial-box">
-                <div class="user-info">
-                    <div class="avatar">ML</div>
-                    <span class="user-name">Marcos L.</span>
-                </div>
-                <p>Esta guía me enseñó a aceptar lo que sentía. Gracias a sus ejercicios, pude volver a sonreír al recordar a mi Leo. Realmente transformadora.</p>
-                <div class="reaction-bar">
-                    <span>❤️ 210</span> <span>😢 54</span> <span>👍 118</span>
-                </div>
+        <section class="final-section">
+            <div class="container">
+                <h2 class="closing-text">
+                    🌙 Sanar no es olvidar… es recordar desde la paz.
+                    <br>
+                    Dale un nuevo significado a su partida y honra el amor que los unió.
+                </h2>
+                
+                <a 
+                    href="https://pay.hotmart.com/A99774345B?checkoutMode=10" 
+                    class="cta-button" 
+                    style="background-color: var(--color-lavanda-oscuro); color: var(--color-blanco);"
+                >
+                    💜 Sí, quiero sanar mi corazón hoy
+                </a>
             </div>
-
-            <div class="testimonial-box">
-                <div class="user-info">
-                    <div class="avatar">CG</div>
-                    <span class="user-name">Carolina G.</span>
-                </div>
-                <p>Cada página resonaba con mi corazón. Me ayudó a sanar y a honrar el amor con mi princesa. Imprescindible para cualquier corazón roto.</p>
-                <div class="reaction-bar">
-                    <span>❤️ 245</span> <span>😢 71</span> <span>👍 134</span>
-                </div>
+        </section>
+        
+        <footer class="footer">
+            <div class="container">
+                <p>
+                    &copy; <span id="current-year"></span> Sus Huellas, Mi Camino. Todos los derechos reservados.
+                </p>
+                <p style="margin-top: 5px;">
+                    Aviso Legal | Política de Privacidad
+                </p>
             </div>
+        </footer>
 
-            <p class="comment-placeholder">
-                💬 Para comentar debes iniciar sesión.
-            </p>
-        </div>
-    </section>
-
-    <section class="final-section">
-        <div class="container">
-            <h2 class="closing-text">
-                🌙 Sanar no es olvidar… es recordar desde la paz.
-                <br>
-                Dale un nuevo significado a su partida y honra el amor que los unió.
-            </h2>
-            
-            <a 
-                href="https://pay.hotmart.com/A99774345B?checkoutMode=10" 
-                class="cta-button" 
-                style="background-color: var(--color-lavanda-oscuro); color: var(--color-blanco);"
-            >
-                💜 Sí, quiero sanar mi corazón hoy
-            </a>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="container">
-            <p>
-                &copy; <span id="current-year"></span> Sus Huellas, Mi Camino. Todos los derechos reservados.
-            </p>
-            <p style="margin-top: 5px;">
-                Aviso Legal | Política de Privacidad
-            </p>
-        </div>
-    </footer>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const ctaButton = document.getElementById('cta-hero-button');
+            // Contenedores a aparecer después del retardo
+            const ctaSecurityContainer = document.getElementById('cta-security-container');
+            const delayedSectionsContainer = document.getElementById('delayed-sections');
+
             const viewerCountElement = document.getElementById('viewer-count');
             const currentYearElement = document.getElementById('current-year');
 
-            // 1. Botón de Acción con Retardo (30 segundos)
+            // 1. Contenido con Retardo (60 segundos)
+            const delayInSeconds = 60; // Nuevo tiempo de espera
+
             setTimeout(() => {
-                ctaButton.style.opacity = '1';
-                ctaButton.style.visibility = 'visible';
-                ctaButton.style.transition = 'opacity 0.8s ease-in';
-            }, 30000); // 30000 ms = 30 segundos
+                // Muestra la CTA y la Seguridad
+                ctaSecurityContainer.style.opacity = '1';
+                ctaSecurityContainer.style.visibility = 'visible';
+
+                // Muestra la Sección de Testimonios y la Sección Final/Footer
+                delayedSectionsContainer.style.opacity = '1';
+                delayedSectionsContainer.style.visibility = 'visible';
+
+            }, delayInSeconds * 1000); // 60000 ms = 60 segundos
 
             // 2. Indicador Dinámico (Contador Fluctuante)
-            let currentViewers = 57;
+            let currentViewers = 51; 
             const minViewers = 24;
             const maxViewers = 70;
 
             function updateViewerCount() {
-                // Genera un cambio aleatorio entre -3 y +3, asegurando que se mantenga en el rango [24, 70]
                 let change = Math.floor(Math.random() * 7) - 3; 
                 currentViewers = currentViewers + change;
 
                 if (currentViewers < minViewers) {
-                    currentViewers = minViewers + Math.floor(Math.random() * 5); // Sube un poco si está muy bajo
+                    currentViewers = minViewers + Math.floor(Math.random() * 5);
                 } else if (currentViewers > maxViewers) {
-                    currentViewers = maxViewers - Math.floor(Math.random() * 5); // Baja un poco si está muy alto
+                    currentViewers = maxViewers - Math.floor(Math.random() * 5);
                 }
 
                 viewerCountElement.innerHTML = `👁️ ${currentViewers} personas están viendo este video ahora`;
             }
 
-            // Actualiza el contador cada 5 segundos para un efecto dinámico
+            // Actualiza el contador cada 5 segundos
             setInterval(updateViewerCount, 5000);
 
             // 3. Año actual en el Footer
